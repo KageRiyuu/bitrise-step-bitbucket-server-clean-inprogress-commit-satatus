@@ -1,0 +1,1 @@
+# bitrise-step-bitbucket-server-clean-inprogress-commit-satatus
