@@ -1,0 +1,85 @@
+#
+# A couple of useful guides & docs:
+#
+# - Main Bitrise CLI docs: https://github.com/bitrise-io/bitrise/tree/master/_docs
+# - Step Development Guideline: https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+# - Bitrise.yml format spec: https://github.com/bitrise-io/bitrise/blob/master/_docs/bitrise-yml-format-spec.md
+# - Bitrise docs: http://devcenter.bitrise.io/
+# - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
+
+title: |-
+  Clean InProgress Build Status
+summary: |
+  This step allows you to clean up inprogress build status of given commit.
+description: |
+  This step uses bitbucket rest api V1.0, it expects your domain installed bitbucket rest api.
+  It will call the following API with provided params:
+  **{YOUR DOMAIN}**/rest/build-status/1.0/commits/**{COMMIT}**
+  
+  **API deatils can be found here:**
+    https://docs.atlassian.com/bitbucket-server/rest/5.16.0/bitbucket-rest.html#idm8287391664
+website: https://github.com/KageRiyuu/bitrise-step-bitbucket-server-clean-inprogress-commit-satatus
+source_code_url: https://github.com/KageRiyuu/bitrise-step-bitbucket-server-clean-inprogress-commit-satatus
+support_url: https://github.com/KageRiyuu/bitrise-step-bitbucket-server-clean-inprogress-commit-satatus
+host_os_tags:
+  - osx-10.10
+  - ubuntu-16.04
+type_tags:
+  - utility
+
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: false
+run_if: ""
+
+deps:
+  brew:
+  - name: git
+  - name: wget
+  apt_get:
+  - name: git
+  - name: wget
+
+
+toolkit:
+  bash:
+    entry_file: step.sh
+
+
+inputs:
+
+  - GIT_ACCESS_TOKEN: 
+    opts:
+      title: Access Token
+      summary: Token to access you bitbucket account
+      description: |
+        Access token should have permission to create repo.
+        This step uses bitbucket rest api V1.0, it expects your domain installed rest api.
+        It will call the following API with provided params:
+          **{YOUR DOMAIN}**/rest/build-status/1.0/commits/**{COMMIT}**
+        
+        **API deatils can be found here:**
+          https://docs.atlassian.com/bitbucket-server/rest/5.16.0/bitbucket-rest.html#idm8287391664
+      is_required: true
+      is_sensitive: true
+
+  - GIT_BASE_URL: 
+    opts:
+      title: BitBucket Server URL
+      summary: Base url to your bitbucket server, e.g; https://myrepodomain.com.
+      description: |
+        This step uses bitbucket rest api V1.0, it expects your domain installed rest api.
+        It will call the following API with provided params:
+          **{YOUR DOMAIN}**/rest/api/1.0/projects/**{GIT_PROJECT}**/repos/**{GIT_REPO}**/pull-requests
+        
+        **API deatils can be found here:**
+          https://docs.atlassian.com/bitbucket-server/rest/5.16.0/bitbucket-rest.html#idm8287391664
+      is_required: true
+
+  - COMMIT: 
+    opts:
+      title: Commit Hash.
+      summary: Commit how's status you want to reset.
+      description: |
+        It should be a full length hash value of your commit.
+      is_required: true

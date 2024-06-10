@@ -1,0 +1,12 @@
+format_version: 4
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+
+app:
+  envs:
+  - ACCESS_TOKEN: $GIT_ACCESS_TOKEN
+  - COMMIT: $COMMIT
+  - DOMAIN: $GIT_BASE_URL
+  - BITRISE_STEP_ID: clean-inprogress-commit-status
+  - BITRISE_STEP_VERSION: "0.0.1"
+  - BITRISE_STEP_GIT_CLONE_URL: https://github.com/KageRiyuu/bitrise-step-bitbucket-server-clean-inprogress-commit-satatus.git
+  - MY_STEPLIB_REPO_FORK_GIT_URL: $MY_STEPLIB_REPO_FORK_GIT_URL
