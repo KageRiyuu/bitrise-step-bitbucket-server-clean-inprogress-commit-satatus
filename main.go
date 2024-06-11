@@ -23,9 +23,9 @@ type GetStatusResponse struct {
 }
 
 func main() {
-	commitId := "5a2530bb2b63d28a62b0fde5e48f3c94f21a41b9"
-	token := "BBDC-NzI1OTUyNDMyMTk3Omexv+31q6zMkWeZav1O1x/n5bQy"
-	domain := "https://gitpub.rakuten-it.com"
+	commitId := os.Getenv("COMMIT")
+	token := os.Getenv("GIT_ACCESS_TOKEN")
+	domain := os.Getenv("GIT_BASE_URL")
 
 	fmt.Println("-----------------------------------------")
 	fmt.Println("Getting statuses for commit: " + commitId)
