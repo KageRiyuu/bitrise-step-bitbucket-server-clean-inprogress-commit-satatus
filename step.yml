@@ -42,8 +42,8 @@ deps:
 
 
 toolkit:
-  bash:
-    entry_file: step.sh
+  go:
+    package_name: clean-inprogress-commit-satatus
 
 
 inputs:
