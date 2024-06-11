@@ -28,6 +28,13 @@ func main() {
 	domain := os.Getenv("GIT_BASE_URL")
 
 	fmt.Println("-----------------------------------------")
+	fmt.Println("Inputs: ")
+	fmt.Println("Domain: " + domain)
+	fmt.Println("Commit Hash: " + commitId)
+	fmt.Println("-----------------------------------------")
+	fmt.Println("")
+
+	fmt.Println("-----------------------------------------")
 	fmt.Println("Getting statuses for commit: " + commitId)
 	statuses := getStatuses(token, domain, commitId)
 	fmt.Printf("Total status count is: %d", len(statuses))
@@ -55,7 +62,7 @@ func main() {
 
 func getStatuses(token string, domain string, commitId string) []StatusValue {
 	client := &http.Client{}
-	req, _ := http.NewRequest("GET", domain+"/rest/build-status/1.0/commits/"+commitId, nil)
+	req, _ := http.NewRequest("GET", "https://"+domain+"/rest/build-status/1.0/commits/"+commitId, nil)
 	req.Header.Set("Authorization", "Bearer "+token)
 	response, err := client.Do(req)
 
@@ -81,7 +88,7 @@ func invalidateStatus(token string, domain string, commitId string, status Statu
 	status.State = "FAILED"
 	reqBody, _ := json.Marshal(status)
 	client := &http.Client{}
-	req, _ := http.NewRequest("POST", domain+"/rest/build-status/1.0/commits/"+commitId, bytes.NewBuffer(reqBody))
+	req, _ := http.NewRequest("POST", "https://"+domain+"/rest/build-status/1.0/commits/"+commitId, bytes.NewBuffer(reqBody))
 	req.Header.Set("Authorization", "Bearer "+token)
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
 	response, err := client.Do(req)
